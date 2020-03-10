@@ -29,6 +29,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DemoFormProject\Data.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DemoFormProject\Models\LocalDatabaseRoutines.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Folder Include="DemoFormProject\" />
     <Folder Include="DemoFormProject\Models\" />
+    <Folder Include="DemoFormProject\NewFolder1\" />
     <Folder Include="DemoFormProject\static\" />
     <Folder Include="DemoFormProject\static\content\" />
     <Folder Include="DemoFormProject\static\fonts\" />
@@ -51,6 +55,7 @@
     <Folder Include="DemoFormProject\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DemoFormProject\static\Data\clt2.csv" />
     <Content Include="DemoFormProject\static\Data\users.csv" />
     <Content Include="DemoFormProject\static\Data\capitals.csv" />
     <Content Include="DemoFormProject\static\Pics\pic1.jpg" />
