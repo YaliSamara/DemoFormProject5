@@ -2,12 +2,26 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<h2 style="color:pink">{{ title }}.</h2>
+<h3 style="color:hotpink "> {{ message }}</h3>
 
-<p>Use this area to provide additional information.</p>
+<p></p>
 
-{{ raw_data_table | safe}}
+<p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Expand 
+    </a>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Collapse
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        {{ raw_data_table | safe}}
+    </div>
+</div>
+
+
 
 
 {% endblock %}

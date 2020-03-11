@@ -187,7 +187,7 @@ def DataSet():
     """Renders the about page."""
     return render_template(
         'DataSet.html',
-        title='DataSet',
+        title='DataSet-table',
         year=datetime.now().year,
         raw_data_table = raw_data_table,
         message='Restoration of contaminated land.'
