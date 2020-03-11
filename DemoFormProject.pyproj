@@ -56,10 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DemoFormProject\static\Data\clt2.csv" />
+    <Content Include="DemoFormProject\static\Data\cltxls1.csv" />
+    <Content Include="DemoFormProject\static\Data\cltxls2.csv" />
+    <Content Include="DemoFormProject\static\Data\cltxls4.csv" />
+    <Content Include="DemoFormProject\static\Data\Output-Debug.txt" />
     <Content Include="DemoFormProject\static\Data\users.csv" />
     <Content Include="DemoFormProject\static\Data\capitals.csv" />
     <Content Include="DemoFormProject\static\Pics\pic1.jpg" />
+    <Content Include="DemoFormProject\templates\Data.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="DemoFormProject\templates\DataModel.html" />
+    <Content Include="DemoFormProject\templates\DataSet.html" />
     <Content Include="DemoFormProject\templates\DataSet1.html" />
     <Content Include="DemoFormProject\templates\register.html" />
     <Content Include="DemoFormProject\templates\login.html" />

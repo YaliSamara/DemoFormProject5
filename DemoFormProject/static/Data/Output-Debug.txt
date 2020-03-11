@@ -1,0 +1,38 @@
+﻿ * Running on http://localhost:53473/ (Press CTRL+C to quit)
+The thread 0x2 has exited with code 0 (0x0).
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET / HTTP/1.1" 200 -
+The thread 0x3 has exited with code 0 (0x0).
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/scripts/modernizr-2.6.2.js HTTP/1.1" 200 -
+The thread 0x4 has exited with code 0 (0x0).
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/scripts/jquery-1.10.2.js HTTP/1.1" 200 -
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/scripts/bootstrap.js HTTP/1.1" 200 -
+The thread 0x7 has exited with code 0 (0x0).
+The thread 0x5 has exited with code 0 (0x0).
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/content/site.css HTTP/1.1" 200 -
+The thread 0x6 has exited with code 0 (0x0).
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/content/bootstrap.min.css HTTP/1.1" 200 -
+127.0.0.1 - - [10/Mar/2020 22:01:44] "GET /static/scripts/respond.js HTTP/1.1" 200 -
+The thread 0x8 has exited with code 0 (0x0).
+The thread 0x9 has exited with code 0 (0x0).
+[2020-03-10 22:01:47,687] ERROR in app: Exception on /DataModel [GET]
+Traceback (most recent call last):
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\User\.conda\envs\env\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\User\source\repos\DemoFormProject5\DemoFormProject\views.py", line 202, in DataModel
+    df = pd.read_csv(path.join(path.dirname, 'static\\Data\\cltxls1.csv'), encoding="utf-8")
+  File "C:\Users\User\.conda\envs\env\lib\ntpath.py", line 70, in join
+    path = os.fspath(path)
+TypeError: expected str, bytes or os.PathLike object, not function
+127.0.0.1 - - [10/Mar/2020 22:01:47] "GET /DataModel HTTP/1.1" 500 -
+The thread 0xa has exited with code 0 (0x0).
+The program 'python.exe' has exited with code -1 (0xffffffff).

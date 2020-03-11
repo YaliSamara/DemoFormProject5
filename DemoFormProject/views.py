@@ -90,7 +90,7 @@ def Query():
     Name = None
     Country = ''
     capital = ''
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\clt2.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
     df = df.set_index('Country')
 
     raw_data_table = df.to_html(classes = 'table table-hover')
@@ -101,17 +101,17 @@ def Query():
         name = form.name.data
         Country = name
         if (name in df.index):
-            capital = df.loc[name,'clt2']
+            capital = df.loc[name,'Capital']
             raw_data_table = ""
         else:
-            clt2 = name + ', no such country'
+            capital = name + ', no such country'
         form.name.data = ''
 
 
 
     return render_template('Query.html', 
             form = form, 
-            name = clt2, 
+            name = capital, 
             Country = Country,
             raw_data_table = raw_data_table,
             title='Query by the user',
@@ -181,7 +181,7 @@ def Data():
 
 @app.route('/DataSet')
 def DataSet():
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\clt2.csv'),encoding="utf-8")
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\cltxls4.csv'),encoding="utf-8")
 
     raw_data_table = df.to_html(classes = 'table table-hover')
     """Renders the about page."""
@@ -190,26 +190,28 @@ def DataSet():
         title='DataSet',
         year=datetime.now().year,
         raw_data_table = raw_data_table,
-        message='Your application description page.'
+        message='Restoration of contaminated land.'
     )
+
 
 
 
 @app.route('/DataModel')
 def DataModel():
+
     """Renders the contact page."""
     return render_template(
         'DataModel.html',
-        title='This is my Data Model page about Restoration of contaminated land',
+        title='This is my Data Model page abou UFO',
         year=datetime.now().year,
-        message='On this page we will see in the table the amount of soil pollution each year'
+        message='In this page we will display the datasets we are going to use in order to answer ARE THERE UFOs'
     )
 
 
 @app.route('/DataSet1')
 def DataSet1():
 
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\clt2.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
     raw_data_table = df.to_html(classes = 'table table-hover')
 
 
