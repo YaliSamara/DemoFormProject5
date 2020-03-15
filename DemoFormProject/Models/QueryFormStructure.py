@@ -1,4 +1,3 @@
-
 ### ----------------------------------------------------------- ###
 ### --- include all software packages and libraries needed ---- ###
 ### ----------------------------------------------------------- ###
@@ -22,7 +21,8 @@ from wtforms.validators import DataRequired
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
-    name   = StringField('Country Name:  ' , validators = [DataRequired()])
+    name     = StringField('user name:  ' , validators = [DataRequired("you must write a username")])
+    password = StringField('pass word: ', validators = [DataRequired(" you must write password")])
     submit = SubmitField('Submit')
 
 
@@ -75,5 +75,3 @@ class UserRegistrationFormStructure(FlaskForm):
 #class DataParametersFormStructure(FlaskForm):
 #    
 #    submit = SubmitField('Submit')
-
-

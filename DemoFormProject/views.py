@@ -84,14 +84,14 @@ def Album():
     )
 
 
-@app.route('/Query', methods=['GET', 'POST'])
-def Query():
+@app.route('/query', methods=['GET', 'POST'])
+def query():
 
     Name = None
     Country = ''
     capital = ''
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
-    df = df.set_index('Country')
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\cltxls4.csv'))
+    df = df.set_index('דרגת זיהום לפני שיקום')
 
     raw_data_table = df.to_html(classes = 'table table-hover')
 
@@ -223,6 +223,18 @@ def DataSet1():
         year=datetime.now().year,
         message='In this page we will display the datasets we are going to use in order to answer ARE THERE UFOs'
     )
+@app.route('/login')
+def login():
+    """Renders the login page."""
+    return render_template(
+        'login.html',
+        title='login page:',
+        year=datetime.now().year,
+        message='Your login page.'
+    )
+    
+
+
 
 
 
