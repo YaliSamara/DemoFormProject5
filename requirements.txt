@@ -4,3 +4,4 @@ MatPlotLib
 Flask_wtf
 requests
 wtforms
+flask-bootstrap

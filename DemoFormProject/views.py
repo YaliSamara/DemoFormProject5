@@ -31,11 +31,20 @@ from flask   import Flask, render_template, flash, request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
 from wtforms import ValidationError
-
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from DemoFormProject.Models.QueryFormStructure import QueryFormStructure 
 from DemoFormProject.Models.QueryFormStructure import LoginFormStructure 
 from DemoFormProject.Models.QueryFormStructure import UserRegistrationFormStructure 
+from DemoFormProject.Models.QueryFormStructure import cotaminationform
+
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+
+from flask_bootstrap import Bootstrap
+bootstrap = Bootstrap(app)
 
 ###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
@@ -84,40 +93,6 @@ def Album():
     )
 
 
-@app.route('/query', methods=['GET', 'POST'])
-def query():
-
-    Name = None
-    Country = ''
-    capital = ''
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\cltxls4.csv'))
-    df = df.set_index('דרגת זיהום לפני שיקום')
-
-    raw_data_table = df.to_html(classes = 'table table-hover')
-
-    form = QueryFormStructure(request.form)
-     
-    if (request.method == 'POST' ):
-        name = form.name.data
-        Country = name
-        if (name in df.index):
-            capital = df.loc[name,'Capital']
-            raw_data_table = ""
-        else:
-            capital = name + ', no such country'
-        form.name.data = ''
-
-
-
-    return render_template('Query.html', 
-            form = form, 
-            name = capital, 
-            Country = Country,
-            raw_data_table = raw_data_table,
-            title='Query by the user',
-            year=datetime.now().year,
-            message='This page will use the web forms to get user input'
-        )
 
 # -------------------------------------------------------
 # Register new user page
@@ -235,7 +210,67 @@ def login():
     
 
 
+@app.route('/query' , methods = ['GET' , 'POST'])
+def query():
 
+    print("Yom Layla")
+
+    form1 = cotaminationform()
+    chart = ''
+
+   
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/cltxls4.csv'))
+
+
+    if request.method == 'POST':
+        level = form1.contamination.data
+
+        df = df[['רשות מקומית ','דרגת זיהום לפני שיקום']]
+        l_rashut = list(set(df['רשות מקומית ']))
+        new_df = pd.DataFrame()
+        new_df['Monicipality'] = l_rashut
+        l_no_cont =[]
+        for mon in l_rashut:
+            n = df.loc[(df['רשות מקומית '] == mon) & ((df['דרגת זיהום לפני שיקום'] == 'אין זיהום') | (df['דרגת זיהום לפני שיקום'] == ' אין זיהום')) ].shape[0]
+            l_no_cont.append(n)
+        new_df['No Cont'] = l_no_cont
+        l_no_cont =[]
+        for mon in l_rashut:
+            n = df.loc[(df['רשות מקומית '] == mon) & (df['דרגת זיהום לפני שיקום'] == 'קל')].shape[0]
+            l_no_cont.append(n)
+        new_df['Light Cont'] = l_no_cont
+        l_no_cont =[]
+        for mon in l_rashut:
+            n = df.loc[(df['רשות מקומית '] == mon) & ((df['דרגת זיהום לפני שיקום'] == 'בינוני') | (df['דרגת זיהום לפני שיקום'] == ' בינוני')) ].shape[0]
+            l_no_cont.append(n)
+        new_df['Medium Cont'] = l_no_cont
+        l_no_cont =[]
+        for mon in l_rashut:
+            n = df.loc[(df['רשות מקומית '] == mon) & (df['דרגת זיהום לפני שיקום'] == 'כבד')].shape[0]
+            l_no_cont.append(n)
+        new_df['Heavy Cont'] = l_no_cont
+        new_df=new_df[['Monicipality',level]]
+        new_df = new_df.set_index('Monicipality')
+
+
+        fig1 = plt.figure()
+        ax = fig1.add_subplot(111)
+        new_df.plot(ax = ax , kind='bar')
+        chart = plot_to_img(fig1)
+
+    
+    return render_template(
+        'query1.html',
+       
+        form1 = form1,
+        chart = chart
+    )
+def plot_to_img(fig):
+    pngImage = io.BytesIO()
+    FigureCanvas(fig).print_png(pngImage)
+    pngImageB64String = "data:image/png;base64,"
+    pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+    return pngImageB64String
 
 
 

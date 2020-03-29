@@ -8,6 +8,7 @@ from wtforms import StringField, SubmitField
 from wtforms import Form, BooleanField, PasswordField
 from wtforms import TextField, TextAreaField, SelectField, DateField
 from wtforms import validators, ValidationError
+from wtforms import TextField, TextAreaField, SelectField
 
 from wtforms.validators import DataRequired
 ### ----------------------------------------------------------- ###
@@ -75,3 +76,9 @@ class UserRegistrationFormStructure(FlaskForm):
 #class DataParametersFormStructure(FlaskForm):
 #    
 #    submit = SubmitField('Submit')
+
+class cotaminationform(FlaskForm):
+    contamination = SelectField('Select contamination level:' , validators = [DataRequired] , choices=[('No Cont', 'No Cont'), ('Light Cont', 'Light Cont'), ('Medium Cont', 'Medium Cont'), ('Heavy Cont', 'Heavy Cont')])
+    subnmit = SubmitField('submit')
+
+

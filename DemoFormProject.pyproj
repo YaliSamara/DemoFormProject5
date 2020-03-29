@@ -69,10 +69,15 @@
     <Content Include="DemoFormProject\templates\DataModel.html" />
     <Content Include="DemoFormProject\templates\DataSet.html" />
     <Content Include="DemoFormProject\templates\DataSet1.html" />
+    <Content Include="DemoFormProject\templates\query1.html" />
     <Content Include="DemoFormProject\templates\register.html" />
-    <Content Include="DemoFormProject\templates\login.html" />
+    <Content Include="..\..\..\Desktop\לימודים\מדעי המחשב י\login.html">
+      <Link>DemoFormProject\templates\login.html</Link>
+    </Content>
     <Content Include="DemoFormProject\templates\PictureAlbum.html" />
-    <Content Include="DemoFormProject\templates\query.html" />
+    <Content Include="..\..\..\Desktop\לימודים\מדעי המחשב י\query.html">
+      <Link>DemoFormProject\templates\query.html</Link>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="DemoFormProject\static\content\bootstrap.css" />
     <Content Include="DemoFormProject\static\content\bootstrap.min.css" />
