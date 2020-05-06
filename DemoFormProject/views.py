@@ -131,7 +131,7 @@ def Login():
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
             flash('Login approved!')
-            #return redirect('<were to go if login is good!')
+            return redirect('/query')
         else:
             flash('Error in - Username and/or password')
    
@@ -157,6 +157,7 @@ def Data():
 @app.route('/DataSet')
 def DataSet():
     df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\cltxls4.csv'),encoding="utf-8")
+    df=df.sample(10)
 
     raw_data_table = df.to_html(classes = 'table table-hover')
     """Renders the about page."""
@@ -250,12 +251,13 @@ def query():
             l_no_cont.append(n)
         new_df['Heavy Cont'] = l_no_cont
         new_df=new_df[['Monicipality',level]]
+        new_df['Monicipality']= new_df['Monicipality'].apply(lambda x:x[::-1])
         new_df = new_df.set_index('Monicipality')
 
 
         fig1 = plt.figure()
         ax = fig1.add_subplot(111)
-        new_df.plot(ax = ax , kind='bar')
+        new_df.plot(ax = ax , kind='barh')
         chart = plot_to_img(fig1)
 
     
@@ -265,12 +267,15 @@ def query():
         form1 = form1,
         chart = chart
     )
+
 def plot_to_img(fig):
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)
     pngImageB64String = "data:image/png;base64,"
     pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return pngImageB64String
+
+
 
 
 
