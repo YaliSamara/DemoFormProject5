@@ -230,6 +230,7 @@ def query():
         l_rashut = list(set(df['רשות מקומית ']))
         new_df = pd.DataFrame()
         new_df['Monicipality'] = l_rashut
+        total_df=new_df.groupby(['Monicipality']).count()
         l_no_cont =[]
         for mon in l_rashut:
             n = df.loc[(df['רשות מקומית '] == mon) & ((df['דרגת זיהום לפני שיקום'] == 'אין זיהום') | (df['דרגת זיהום לפני שיקום'] == ' אין זיהום')) ].shape[0]
@@ -250,7 +251,11 @@ def query():
             n = df.loc[(df['רשות מקומית '] == mon) & (df['דרגת זיהום לפני שיקום'] == 'כבד')].shape[0]
             l_no_cont.append(n)
         new_df['Heavy Cont'] = l_no_cont
+
+        new_df[level] = new_df[level] / (new_df['Heavy Cont'] + new_df['Light Cont'] + new_df['No Cont'])
+        new_df=new_df.fillna(value=0)
         new_df=new_df[['Monicipality',level]]
+        
         new_df['Monicipality']= new_df['Monicipality'].apply(lambda x:x[::-1])
         new_df = new_df.set_index('Monicipality')
 
