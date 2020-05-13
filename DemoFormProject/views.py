@@ -54,7 +54,7 @@ db_Functions = create_LocalDatabaseServiceRoutines()
 @app.route('/')
 @app.route('/home')
 def home():
-    """Renders the home page."""
+    """בהקדם אעלה הערות"""
     return render_template(
         'index.html',
         title='Home Page',
@@ -63,7 +63,7 @@ def home():
 
 @app.route('/contact')
 def contact():
-    """Renders the contact page."""
+    """בהקדם אעלה הערות"""
     return render_template(
         'contact.html',
         title='about me:',
@@ -73,7 +73,7 @@ def contact():
 
 @app.route('/about')
 def about():
-    """Renders the about page."""
+    """בהקדם אעלה הערות."""
     return render_template(
         'about.html',
         title='About',
@@ -84,7 +84,7 @@ def about():
 
 @app.route('/Album')
 def Album():
-    """Renders the about page."""
+    """בהקדם אעלה הערות"""
     return render_template(
         'PictureAlbum.html',
         title='Pictures',
@@ -175,7 +175,7 @@ def DataSet():
 @app.route('/DataModel')
 def DataModel():
 
-    """Renders the contact page."""
+    """בהקדם אעלה הערות """
     return render_template(
         'DataModel.html',
         title='This is my Data Model page abou UFO',
@@ -201,7 +201,7 @@ def DataSet1():
     )
 @app.route('/login')
 def login():
-    """Renders the login page."""
+    """בהקדם אעלה הערות"""
     return render_template(
         'login.html',
         title='login page:',
