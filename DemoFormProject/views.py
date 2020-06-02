@@ -214,9 +214,10 @@ def login():
 @app.route('/query' , methods = ['GET' , 'POST'])
 def query():
 
-    print("Yom Layla")
+    print("Restoration of contaminated land")
 
     form1 = cotaminationform()
+    #כל המשתנים שהמשתמש נותן לי וזה מוגדר ב 
     chart = ''
 
    
@@ -224,39 +225,62 @@ def query():
 
 
     if request.method == 'POST':
-        level = form1.contamination.data
+        level = form1.contamination.data 
+        # מוגדר בעמוד האחר
 
         df = df[['רשות מקומית ','דרגת זיהום לפני שיקום']]
+        # רק העמודות עם התבחינים האלו יופיעו ושאר העמודות לא
         l_rashut = list(set(df['רשות מקומית ']))
-        new_df = pd.DataFrame()
+        # מציג את התבחין של הרשות מקומית כשורה ולא כעמודה בטבלה
+        new_df = pd.DataFrame() 
+        # בונה טבלה חדשה שבה נכניס דברים
         new_df['Monicipality'] = l_rashut
-        total_df=new_df.groupby(['Monicipality']).count()
+        # זה סוגי הדרגות שנכנס לטבלה החדשה Monicipality 
+        total_df=new_df.groupby(['Monicipality']).count() 
+        # רושם את כלל סכום הדרגות שהיו ברשויות  
         l_no_cont =[]
         for mon in l_rashut:
             n = df.loc[(df['רשות מקומית '] == mon) & ((df['דרגת זיהום לפני שיקום'] == 'אין זיהום') | (df['דרגת זיהום לפני שיקום'] == ' אין זיהום')) ].shape[0]
+            # סכום הרשויות שבהן לא היו זיהום
             l_no_cont.append(n)
+            # משכלל את סכום רשויות אלה
         new_df['No Cont'] = l_no_cont
+        #  No Cont מכניס לטבלה החדשה שעשינו אפשרות של  
         l_no_cont =[]
         for mon in l_rashut:
             n = df.loc[(df['רשות מקומית '] == mon) & (df['דרגת זיהום לפני שיקום'] == 'קל')].shape[0]
+            # סכום הרשויות שבהן דרגת הזיהום הייתה קלה
             l_no_cont.append(n)
+            # משכלל את סכום הרשויות האלה
         new_df['Light Cont'] = l_no_cont
+        #Light Cont מכניס לטבלה החדשה עוד אפשרויות של   
         l_no_cont =[]
         for mon in l_rashut:
             n = df.loc[(df['רשות מקומית '] == mon) & ((df['דרגת זיהום לפני שיקום'] == 'בינוני') | (df['דרגת זיהום לפני שיקום'] == ' בינוני')) ].shape[0]
+            #סכום הרשויות שבהן דרגת הזיהום היא בינונית 
             l_no_cont.append(n)
+            # משכלל את סכום הרשויות האלה
         new_df['Medium Cont'] = l_no_cont
+        #  Medium Cont מוסיף לטבלה עוד אפשרות של  
         l_no_cont =[]
         for mon in l_rashut:
             n = df.loc[(df['רשות מקומית '] == mon) & (df['דרגת זיהום לפני שיקום'] == 'כבד')].shape[0]
+            #סכום הרשויות שבהן דרגת הזיהום היא כבדה
             l_no_cont.append(n)
+            #משכלל את סכום הרשויות האלה
         new_df['Heavy Cont'] = l_no_cont
+        #  Heavy Cont מוסיף לטבלה עוד אפשרות של 
 
         new_df[level] = new_df[level] / (new_df['Heavy Cont'] + new_df['Light Cont'] + new_df['No Cont'])
+        #Level =  סכום דרגת הזיהום לפני 
+        #יחס דרגת הסיכום לפני בין סכום כל הדרגות בכל הרשויות אחרי  
+    
         new_df=new_df.fillna(value=0)
+        #במקום שיהיה רשום לרשות שאין לה דרגת זיהום יהיה רשום 0
         new_df=new_df[['Monicipality',level]]
         
         new_df['Monicipality']= new_df['Monicipality'].apply(lambda x:x[::-1])
+        #הופך את האותיות בשביל שהמילה תהיה ברורה וקריאה
         new_df = new_df.set_index('Monicipality')
 
 
@@ -264,6 +288,7 @@ def query():
         ax = fig1.add_subplot(111)
         new_df.plot(ax = ax , kind='barh')
         chart = plot_to_img(fig1)
+        # מציג את זה כגרף
 
     
     return render_template(

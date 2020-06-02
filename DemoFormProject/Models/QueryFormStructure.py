@@ -82,3 +82,4 @@ class cotaminationform(FlaskForm):
     subnmit = SubmitField('submit')
 
 
+    # שחייב לבחור לבדוק שזה בסדר, ואליד
